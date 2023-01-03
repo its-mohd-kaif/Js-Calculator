@@ -4,44 +4,47 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculator</title>
-    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="stylesheet" href="style.css" />
+    <title>JSCalculator</title>
   </head>
   <body>
+    <!-- Main container -->
     <center>
-      <h1>Calculator</h1>
-      <section>
-        <div class="container">
-          <div class="calculator">
-            <div class="display">
-              <div class="display-1">0</div>
-              <div class="display-2">0</div>
-              <div class="temp-result"></div>
+      <h1>Js Calculator</h1>
+      <div class="calculator">
+        <div class="input" id="input"></div>
+        <div class="buttons">
+          <div class="operators">
+            <div>+</div>
+            <div>-</div>
+            <div>&times;</div>
+            <div>&divide;</div>
+          </div>
+          <div class="leftPanel">
+            <div class="numbers">
+              <div>7</div>
+              <div>8</div>
+              <div>9</div>
             </div>
-            <div class="all_button">
-              <div class="button all-clear">C</div>
-              <div class="button last-entity-clear">CE</div>
-              <div class="button operation">%</div>
-              <div class="button operation">/</div>
-              <div class="button number">7</div>
-              <div class="button number">8</div>
-              <div class="button number">9</div>
-              <div class="button operation">x</div>
-              <div class="button number">4</div>
-              <div class="button number">5</div>
-              <div class="button number">6</div>
-              <div class="button operation">-</div>
-              <div class="button number">1</div>
-              <div class="button number">2</div>
-              <div class="button number">3</div>
-              <div class="button operation">+</div>
-              <div class="button btn-0 number">0</div>
-              <div class="button number dot">.</div>
-              <div class="button equal">=</div>
+            <div class="numbers">
+              <div>4</div>
+              <div>5</div>
+              <div>6</div>
+            </div>
+            <div class="numbers">
+              <div>1</div>
+              <div>2</div>
+              <div>3</div>
+            </div>
+            <div class="numbers">
+              <div>0</div>
+              <div>.</div>
+              <div id="clear">C</div>
             </div>
           </div>
+          <div class="equal" id="result">=</div>
         </div>
-      </section>
+      </div>
     </center>
   </body>
   <script src="index.js"></script>

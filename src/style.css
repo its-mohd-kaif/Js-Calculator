@@ -1,68 +1,104 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
-  html {
-    font-family: "Montserrat", sans-serif;
-  }
-  section {
-    background-color: rgb(0, 105, 170);
-    min-height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .container {
-    width: 90%;
-    max-width: 400px;
-    background-color: rgb(14, 136, 167);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  .display {
-    background-color: rgb(175, 204, 202);
-    height: 100px;
-    width: 100%;
-    text-align: right;
-    padding: 20px;
-    font-size: 30px;
-    position: relative;
-  }
-  .display-1 {
-    opacity: 0.4;
-    font-size: 20px;
-    height: 20px;
-    overflow: hidden;
-  }
-  .temp-result {
-    position: absolute;
-    bottom: 0;
-    left: 10;
-    font-size: 20px;
-    opacity: 0.3;
-  }
-  .all_button {
-    color: whitesmoke;
-    display: grid;
-    grid-template: repeat(4, 1fr) / repeat(4, 1fr);
-  }
-  .button {
-    border: 0.5px solid rgba(92, 92, 92, 0.137);
-    display: inline-block;
-    height: 100px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 30px;
-    cursor: pointer;
-  }
-  .button:hover {
-    background-color: rgb(109, 196, 216);
-  }
-  .btn-0 {
-    grid-column: 1/3;
-  }
-  
+.calculator {
+  width: 70%;
+}
+
+.input {
+  width: 420px;
+  background-color: rgb(187, 187, 187);
+  height: 60px;
+  border: 1px solid black;
+  font-size: 30px;
+}
+
+.input:hover {
+  border: 1px solid #bbb;
+  -webkit-box-shadow: inset 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.operators div {
+  display: inline-block;
+  border: 1px solid #bbb;
+  border-radius: 1px;
+  width: 77px;
+  text-align: center;
+  padding: 10px;
+  margin: 20px 4px 10px 0;
+  cursor: pointer;
+  background-color: #ddd;
+  font-size: larger;
+  background-color: #ff9500;
+  color: white;
+}
+
+.operators div:hover {
+  background-color: #307cf9;
+  -webkit-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+  border-color: #aaa;
+}
+
+.operators div:active {
+  font-weight: bold;
+}
+
+.leftPanel {
+  display: inline-block;
+  width: 100%;
+}
+
+.numbers div {
+  display: inline-block;
+  border: 1px solid #ddd;
+  border-radius: 1px;
+  width: 7em;
+  text-align: center;
+  padding: 10px;
+  margin: 10px 4px 10px 0;
+  cursor: pointer;
+  background-color: #bdbdbd;
+  transition: border-color 0.2s ease-in-out, background-color 0.2s,
+    box-shadow 0.2s;
+  background-color: #1c1c1c;
+  color: white;
+}
+
+.numbers div:hover {
+  background-color: #f1f1f1;
+  color: black;
+  -webkit-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+  border-color: #bbb;
+}
+
+.numbers div:active {
+  font-weight: bold;
+}
+
+div.equal {
+  display: inline-block;
+  border: 1px solid #3079ed;
+  border-radius: 1px;
+  width: 300px;
+  text-align: center;
+  padding: 0.6em 3em;
+  margin: 10px 6px 10px 0;
+  vertical-align: top;
+  cursor: pointer;
+  color: #fff;
+  background-color: #4d90fe;
+  transition: all 0.2s ease-in-out;
+  font-size: larger;
+  background-color: #ff9500;
+}
+
+div.equal:hover {
+  background-color: #307cf9;
+  -webkit-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+  border-color: #1857bb;
+}
+
+div.equal:active {
+  font-weight: bold;
+}

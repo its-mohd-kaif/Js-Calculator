@@ -1,132 +1,111 @@
-const display1El = document.querySelector(".display-1");
-const display2El = document.querySelector(".display-2");
-const tempResultEl = document.querySelector(".temp-result");
-const numbersEl = document.querySelectorAll(".number");
-const operationEl = document.querySelectorAll(".operation");
-const equalEl = document.querySelector(".equal");
-const clearAllEl = document.querySelector(".all-clear");
-const clearLastEl = document.querySelector(".last-entity-clear");
-let dis1Num = "";
-let dis2Num = "";
-let result = null;
-let lastOperation = "";
-let haveDot = false;
+var input = document.getElementById("input"), // input/output button
+  number = document.querySelectorAll(".numbers div"), // number buttons
+  operator = document.querySelectorAll(".operators div"), // operator buttons
+  result = document.getElementById("result"), // equal button
+  clear = document.getElementById("clear"), // clear button
+  resultDisplayed = false; // flag to keep an eye on what output is displayed
 
-numbersEl.forEach((number) => {
-  number.addEventListener("click", (e) => {
-    if (e.target.innerText === "." && !haveDot) {
-      haveDot = true;
-    } else if (e.target.innerText === "." && haveDot) {
-      return;
-    }
-    dis2Num += e.target.innerText;
-    display2El.innerText = dis2Num;
-  });
-});
+// adding click handlers to number buttons
+for (var i = 0; i < number.length; i++) {
+  number[i].addEventListener("click", function (e) {
+    // storing current input string and its last character in variables - used later
+    var currentString = input.innerHTML;
+    var lastChar = currentString[currentString.length - 1];
 
-operationEl.forEach((operation) => {
-  operation.addEventListener("click", (e) => {
-    if (!dis2Num) return;
-    haveDot = false;
-    const operationName = e.target.innerText;
-    if (dis1Num && dis2Num && lastOperation) {
-      mathOperation();
+    // if result is not diplayed
+    if (resultDisplayed === false) {
+      input.innerHTML += e.target.innerHTML;
+    } else if (
+      (resultDisplayed === true && lastChar === "+") ||
+      lastChar === "-" ||
+      lastChar === "×" ||
+      lastChar === "÷"
+    ) {
+      // if result is currently displayed and user pressed an operator
+      resultDisplayed = false;
+      input.innerHTML += e.target.innerHTML;
     } else {
-      result = parseFloat(dis2Num);
+      // if result is currently displayed and user pressed a number
+      // we need clear the input string and add the new input to start the new opration
+      resultDisplayed = false;
+      input.innerHTML = "";
+      input.innerHTML += e.target.innerHTML;
     }
-    clearVar(operationName);
-    lastOperation = operationName;
-    console.log(result);
   });
-});
-function clearVar(name = "") {
-  dis1Num += dis2Num + " " + name + " ";
-  display1El.innerText = dis1Num;
-  display2El.innerText = "";
-  dis2Num = "";
-  tempResultEl.innerText = result;
 }
 
-function mathOperation() {
-  if (lastOperation === "x") {
-    result = parseFloat(result) * parseFloat(dis2Num);
-  } else if (lastOperation === "+") {
-    result = parseFloat(result) + parseFloat(dis2Num);
-  } else if (lastOperation === "-") {
-    result = parseFloat(result) - parseFloat(dis2Num);
-  } else if (lastOperation === "/") {
-    result = parseFloat(result) / parseFloat(dis2Num);
-  } else if (lastOperation === "%") {
-    result = parseFloat(result) % parseFloat(dis2Num);
+// adding click handlers to number buttons
+for (var i = 0; i < operator.length; i++) {
+  operator[i].addEventListener("click", function (e) {
+    // storing current input string and its last character in variables - used later
+    var currentString = input.innerHTML;
+    var lastChar = currentString[currentString.length - 1];
+
+    if (
+      lastChar === "+" ||
+      lastChar === "-" ||
+      lastChar === "×" ||
+      lastChar === "÷"
+    ) {
+      var newString =
+        currentString.substring(0, currentString.length - 1) +
+        e.target.innerHTML;
+      input.innerHTML = newString;
+    } else if (currentString.length == 0) {
+      // if first key pressed is an opearator
+      alert("Enter a number first");
+    } else {
+      input.innerHTML += e.target.innerHTML;
+    }
+  });
+}
+
+// on click of 'equal' button
+result.addEventListener("click", function () {
+  var inputString = input.innerHTML;
+  // Split all Numbers And Store Into Variable
+  var numbers = inputString.split(/\+|\-|\×|\÷/g);
+  // Split all Operator And Store Into Variable
+  var operators = inputString.replace(/[0-9]|\./g, "").split("");
+
+  var divide = operators.indexOf("÷");
+  while (divide != -1) {
+    numbers.splice(divide, 2, numbers[divide] / numbers[divide + 1]);
+    operators.splice(divide, 1);
+    divide = operators.indexOf("÷");
   }
-}
-// operation();
 
-equalEl.addEventListener("click", () => {
-  if (!dis2Num || !dis1Num) return;
-  haveDot = false;
-  mathOperation();
-  clearVar();
-  display2El.innerText = result;
-  tempResultEl.innerText = "";
-  dis2Num = result;
-  dis1Num = "";
-});
-
-clearAllEl.addEventListener("click", () => {
-  dis1Num = "";
-  dis2Num = "";
-  display1El.innerText = "";
-  display2El.innerText = "";
-  result = "";
-  tempResultEl.innerText = "";
-});
-
-clearLastEl.addEventListener("click", () => {
-  display2El.innerText = "";
-  dis2Num = "";
-});
-
-window.addEventListener("keydown", (e) => {
-  if (
-    e.key === "0" ||
-    e.key === "1" ||
-    e.key === "2" ||
-    e.key === "3" ||
-    e.key === "4" ||
-    e.key === "5" ||
-    e.key === "6" ||
-    e.key === "7" ||
-    e.key === "8" ||
-    e.key === "9" ||
-    e.key === "."
-  ) {
-    clickButtonEl(e.key);
-    // console.log(e.key)
-  } else if (e.key === "+" || e.key === "-" || e.key === "/" || e.key === "%") {
-    clickOperation(e.key);
-  } else if (e.key === "*") {
-    clickOperation("x");
-    // console.log(e.key)
-  } else if (e.key == "Enter" || e.key === "=") {
-    clickEqual();
+  var multiply = operators.indexOf("×");
+  while (multiply != -1) {
+    numbers.splice(multiply, 2, numbers[multiply] * numbers[multiply + 1]);
+    operators.splice(multiply, 1);
+    multiply = operators.indexOf("×");
   }
-  // console.log(e.key)
+
+  var subtract = operators.indexOf("-");
+  while (subtract != -1) {
+    numbers.splice(subtract, 2, numbers[subtract] - numbers[subtract + 1]);
+    operators.splice(subtract, 1);
+    subtract = operators.indexOf("-");
+  }
+
+  var add = operators.indexOf("+");
+  while (add != -1) {
+    numbers.splice(
+      add,
+      2,
+      parseFloat(numbers[add]) + parseFloat(numbers[add + 1])
+    );
+    operators.splice(add, 1);
+    add = operators.indexOf("+");
+  }
+
+  input.innerHTML = numbers[0]; // displaying the output
+
+  resultDisplayed = true;
 });
-function clickButtonEl(key) {
-  numbersEl.forEach((button) => {
-    if (button.innerText === key) {
-      button.click();
-    }
-  });
-}
-function clickOperation(key) {
-  operationEl.forEach((operation) => {
-    if (operation.innerText === key) {
-      operation.click();
-    }
-  });
-}
-function clickEqual() {
-  equalEl.click();
-}
+
+// clearing the input on press of clear
+clear.addEventListener("click", function () {
+  input.innerHTML = "";
+});
